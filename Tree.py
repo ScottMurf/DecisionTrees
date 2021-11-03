@@ -1,5 +1,5 @@
-from DecisionTrees import (Tree, format_dataframe, training_test_split,
-accuracy, printTree)
+from DecisionTrees import Tree, format_dataframe, training_test_split
+from DecisionTrees import accuracy, printTree
 import os
 
 # Change working directory to current directory
