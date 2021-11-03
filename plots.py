@@ -14,12 +14,12 @@ sciaccs = []
 N = 10
 for i in range(N):
     X1, Test = training_test_split(X, 0.6666)
-    Tree1 = Tree(X1, 1, 5, False, "gini")
+    Tree1 = Tree(X1, 1, 100, False, "gini")
     Train = X1.drop("Label", axis=1)
     Train_labs = X1["Label"]
     Test1 = Test.drop("Label", axis=1)
     Test_labs = Test["Label"]
-    clf = tree.DecisionTreeClassifier(criterion="gini", max_depth=10)
+    clf = tree.DecisionTreeClassifier(criterion="gini", max_depth=100)
     clf = clf.fit(Train, Train_labs)
     y_pred = clf.predict(Test1)
 
@@ -34,7 +34,7 @@ plt.figure(figsize=[20, 20])
 plt.bar(ind, tuple(accs), width, label=("Average Accuracy={}%".format(round(average1, 2))))
 plt.bar(ind+width, tuple(sciaccs), width, label=("Scikit Learn average accuracy={}%".format(round(average2, 2))))
 plt.ylim(0, 100)
-plt.title("Accuracy of Decision Tree Algorithm on 10 iterations of randomized training and test data. Max depth = 4 layers",fontsize=10)
+plt.title("Accuracy of Decision Tree Algorithm on 10 iterations of randomized training and test data. criterion=gini",fontsize=10)
 plt.ylabel("Accuracy (%)")
 plt.xlabel("Iteration")
 plt.xticks(ind + width / 2, ('Iteration 1','Iteration 2','Iteration 3','Iteration 4','Iteration 5','Iteration 6','Iteration 7','Iteration 8','Iteration 9','Iteration 10',))
