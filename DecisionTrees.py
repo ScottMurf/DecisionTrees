@@ -323,27 +323,36 @@ def segment(X,criterion):
     #Return dictionary containing split dataframes
     return(bf,dict2)
 
-class Tree:
 
+class Tree:
+    """Tree Class for creating decision tree structures"""
     def __init__(self,df,depth,max_depth,end,criterion,key=None):
 
+        # Attributes of a node in tree
         self.criterion=criterion
         self.depth=depth
         self.df=df
         self.end=end
         self.max_depth=max_depth
+        # Temporary variable
         self.temp=None
         self.key=key
 
+        # If max depth is reached, make Node a leaf
         if self.depth==self.max_depth:
             self.end=True
 
+        # If not on Leaf Node
         if self.end==False:
 
+            # Split the Node according to the best split in dataset
             self.bf,self.temp=segment(self.df,self.criterion)
             self.feat,self.threshold=self.bf[0],self.bf[1]
 
             if self.depth!=self.max_depth:
+
+                # Fill the current Tree.under attribute with Tree structure
+                # underneath that node
                 self.under=[]
                 for key in self.temp.keys():
 
@@ -360,16 +369,19 @@ class Tree:
         else:
             return 0,0,0
 
-def testing(observation,Tree):
-    while Tree.end==False:
 
+def testing(observation,Tree):
+    """Gives back the predicted label for a specific observation"""
+    # Traverse tree until reaching a leaf
+    while Tree.end==False:
         feat,threshold= Tree.feat,Tree.threshold
+        # for categorical feature splits
         if Tree.threshold==None:
             for i in range(len(Tree.under)):
                 if observation[feat].to_string(index=False)==str(Tree.under[i].key):
                     Tree=Tree.under[i]
                     break
-
+        # for numerical feature splits
         else:
             if float(observation[feat])<threshold:
                 Tree=Tree.under[1]
@@ -379,7 +391,7 @@ def testing(observation,Tree):
     return Counter(Tree.df["Label"]).most_common()[0][0]
 
 def predict(test,Tree1):
-
+    """stores predictions for a test dataset"""
     test_labels=[]
 
     for i in range(len(test)):
@@ -389,7 +401,7 @@ def predict(test,Tree1):
     return test_labels
 
 def accuracy(test,Tree1):
-
+    """returns accuracy of predictions for a test set"""
     predictions=predict(test,Tree1)
     labels=test["Label"]
     count=0
@@ -401,11 +413,16 @@ def accuracy(test,Tree1):
     return (count/len(labels)*100)
 
 def printTree(Tree,val="Root"):
+    """Prints a text representation of tree"""
+
     a,b,c=Tree.best_feat()
+    # leaf nodes
     if a==0 and b==0 and c==0:
         print(Tree.depth-1,"-"*10*(Tree.depth-1),">",val,"/ Maj Class=",Counter(Tree.df["Label"]).most_common(1)[0][0])
+    # all other nodes
     else:
         print(Tree.depth-1,"-"*10*(Tree.depth-1),">",val,"/","feature:",a,"/","split:",b,"/ Maj Class=",Counter(Tree.df["Label"]).most_common(1)[0][0])
     if Tree.end==False:
+        # recursive calls
         for tree in Tree.under:
             printTree(tree,tree.key)
