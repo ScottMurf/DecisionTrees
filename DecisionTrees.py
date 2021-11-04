@@ -324,7 +324,7 @@ def segment(X,criterion):
     return(bf,dict2)
 
 
-class Tree:
+class Node:
     """Tree Class for creating decision tree structures"""
     def __init__(self,df,depth,max_depth,end,criterion,key=None):
 
@@ -357,10 +357,10 @@ class Tree:
                 for key in self.temp.keys():
 
                     if len(self.temp[key]["Label"].unique())>1:
-                        self.under.append(Tree(self.temp[key],self.depth+1,self.max_depth,False,self.criterion,key))
+                        self.under.append(Node(self.temp[key],self.depth+1,self.max_depth,False,self.criterion,key))
 
                     if len(self.temp[key]["Label"].unique())==1:
-                        self.under.append(Tree(self.temp[key],self.depth+1,self.max_depth,True,self.criterion,key))
+                        self.under.append(Node(self.temp[key],self.depth+1,self.max_depth,True,self.criterion,key))
 
     #Returns the best feature available for at specific node
     def best_feat(self):
@@ -370,39 +370,39 @@ class Tree:
             return 0,0,0
 
 
-def testing(observation,Tree):
+def testing(observation,Node):
     """Gives back the predicted label for a specific observation"""
     # Traverse tree until reaching a leaf
-    while Tree.end==False:
-        feat,threshold= Tree.feat,Tree.threshold
+    while Node.end==False:
+        feat,threshold= Node.feat,Node.threshold
         # for categorical feature splits
-        if Tree.threshold==None:
-            for i in range(len(Tree.under)):
-                if observation[feat].to_string(index=False)==str(Tree.under[i].key):
-                    Tree=Tree.under[i]
+        if Node.threshold==None:
+            for i in range(len(Node.under)):
+                if observation[feat].to_string(index=False)==str(Node.under[i].key):
+                    Node=Node.under[i]
                     break
         # for numerical feature splits
         else:
             if float(observation[feat])<threshold:
-                Tree=Tree.under[1]
+                Node=Node.under[1]
             elif float(observation[feat])>=threshold:
-                Tree=Tree.under[0]
+                Node=Node.under[0]
 
-    return Counter(Tree.df["Label"]).most_common()[0][0]
+    return Counter(Node.df["Label"]).most_common()[0][0]
 
-def predict(test,Tree1):
+def predict(test,Node):
     """stores predictions for a test dataset"""
     test_labels=[]
 
     for i in range(len(test)):
         obs=test.loc[[i]]
-        test_labels.append(testing(obs,Tree1))
+        test_labels.append(testing(obs,Node))
 
     return test_labels
 
-def accuracy(test,Tree1):
+def accuracy(test,Node):
     """returns accuracy of predictions for a test set"""
-    predictions=predict(test,Tree1)
+    predictions=predict(test,Node)
     labels=test["Label"]
     count=0
 
@@ -412,17 +412,17 @@ def accuracy(test,Tree1):
 
     return (count/len(labels)*100)
 
-def printTree(Tree,val="Root"):
+def printTree(Node,val="Root"):
     """Prints a text representation of tree"""
 
-    a,b,c=Tree.best_feat()
+    a,b,c=Node.best_feat()
     # leaf nodes
     if a==0 and b==0 and c==0:
-        print(Tree.depth-1,"-"*10*(Tree.depth-1),">",val,"/ Maj Class=",Counter(Tree.df["Label"]).most_common(1)[0][0])
+        print(Node.depth-1,"-"*10*(Node.depth-1),">",val,"/ Maj Class=",Counter(Node.df["Label"]).most_common(1)[0][0])
     # all other nodes
     else:
-        print(Tree.depth-1,"-"*10*(Tree.depth-1),">",val,"/","feature:",a,"/","split:",b,"/ Maj Class=",Counter(Tree.df["Label"]).most_common(1)[0][0])
-    if Tree.end==False:
+        print(Node.depth-1,"-"*10*(Node.depth-1),">",val,"/","feature:",a,"/","split:",b,"/ Maj Class=",Counter(Node.df["Label"]).most_common(1)[0][0])
+    if Node.end==False:
         # recursive calls
-        for tree in Tree.under:
-            printTree(tree,tree.key)
+        for node in Node.under:
+            printTree(node,node.key)
