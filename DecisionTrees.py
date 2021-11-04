@@ -4,6 +4,7 @@ import csv
 from collections import Counter
 from sklearn import tree
 from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
 
 def format_dataframe(csv,Label):
     """formats dataframe to fit other function needs"""
@@ -453,3 +454,22 @@ def visualise_splits(X,feat,criterion):
     plt.ylabel("{}".format(criterion))
     plt.xlabel("Split value")
     plt.show()
+    return(maxi)
+
+def visualise_best_feature(X,criterion):
+    import numpy
+    feats=list(X.columns[:-1])
+    maxis=[]
+    for i in range(len(feats)):
+        if type(X[feats[i]].values[0])==str or type(X[feats[i]].values[0])==numpy.bool_:
+            maxis.append(categorical_info(X,feat)[0][0])
+        else:
+            maxis.append((visualise_splits(X,feats[i],criterion),feats[i]))
+
+    plt.figure(figsize=(20,5))
+    for val,feat in maxis:
+        plt.title("Comparison of best splits for each feature")
+        plt.bar(feat,val[0],color="b")
+        plt.bar(max(maxis)[1],max(maxis)[0][0],color="r")
+    plt.show()
+    print(maxis)
