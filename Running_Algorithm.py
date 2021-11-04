@@ -6,7 +6,7 @@ from sklearn.metrics import accuracy_score
 
 # Change working directory to current directory
 os.chdir(r"C:\Users\35385\Documents\GitHub\Decision Trees")
-# Format dataframeaccuracy_score(Test_labs, y_pred)*100
+# Format dataframe
 X = format_dataframe("wildfires.csv", "yes")
 # Train/Test Splitting
 X1, Test = training_test_split(X, 0.6666)
@@ -15,17 +15,18 @@ Root = Node(X1, 1, 6, False, "ent")
 # Print the accuracy
 print("{}%".format(round(accuracy(Test, Root), 2)))
 
-#Scikit-Learn Implementation
+# uncomment to see Scikit-Learn Implementation on data
 #clf = tree.DecisionTreeClassifier(criterion="entropy", max_depth=6)
 #clf = clf.fit(X1[X1.columns[:-1]], X1["Label"])
 #y_pred = clf.predict(Test[Test.columns[:-1]])
 #print(accuracy_score(Test["Label"], y_pred)*100)
 
-# Print the Tree structure
+# uncomment to print the Tree structure
 #printTree(Root)
 
-#How to use visualise_splits with a node
+# uncomment to print the information gain of splits for the
+# temp feature on the root node
 #visualise_splits(Root.df,"temp","ent")
 
-#Visualise all splits
+# uncomment to visualise all splits for the root node
 #visualise_best_feature(X,"ent")

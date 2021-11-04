@@ -1,5 +1,6 @@
 import os
 import csv
+#Set working directory (depends on system the code is being ran on)
 os.chdir(r"C:\Users\35385\Documents\GitHub\Decision Trees")
 
 #Open the text file and read the lines

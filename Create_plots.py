@@ -12,9 +12,12 @@ import os
 os.chdir(r"C:\Users\35385\Documents\GitHub\Decision Trees")
 # Format dataframe
 X = format_dataframe("wildfires.csv", "yes")
+#list to store accuracy of custom C4.5 algorithm
 accs = []
+#list to store accuracy of scikit learn algorithm
 sciaccs = []
 N = 10
+#Get accuracy of both algorithms 10 times and store the accuracies
 for i in range(N):
     X1, Test = training_test_split(X, 0.6666)
     Root = Node(X1, 1, 100, False, "gini")
@@ -29,10 +32,14 @@ for i in range(N):
     sciaccs.append(accuracy_score(Test_labs, y_pred)*100)
     accs.append(accuracy(Test, Root))
 
+#Get averages of the accuracies
 average1 = sum(accs)/len(accs)
 average2 = sum(sciaccs)/len(sciaccs)
+#indices
 ind = np.arange(N)
+#bin width
 width = 0.3
+#Create bar charts for the accuracies of the algorithms
 plt.figure(figsize=[20, 20])
 plt.bar(ind, tuple(accs), width, label=("Average Accuracy={}%".format(round(average1, 2))))
 plt.bar(ind+width, tuple(sciaccs), width, label=("Scikit Learn average accuracy={}%".format(round(average2, 2))))
