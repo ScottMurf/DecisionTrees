@@ -1,5 +1,5 @@
 from DecisionTrees import training_test_split, format_dataframe
-from DecisionTrees import accuracy, Tree
+from DecisionTrees import accuracy, Node
 import matplotlib.pyplot as plt
 from sklearn import tree
 from sklearn.metrics import accuracy_score
@@ -14,7 +14,7 @@ sciaccs = []
 N = 10
 for i in range(N):
     X1, Test = training_test_split(X, 0.6666)
-    Tree1 = Tree(X1, 1, 100, False, "gini")
+    Root = Node(X1, 1, 100, False, "gini")
     Train = X1.drop("Label", axis=1)
     Train_labs = X1["Label"]
     Test1 = Test.drop("Label", axis=1)
@@ -24,7 +24,7 @@ for i in range(N):
     y_pred = clf.predict(Test1)
 
     sciaccs.append(accuracy_score(Test_labs, y_pred)*100)
-    accs.append(accuracy(Test, Tree1))
+    accs.append(accuracy(Test, Root))
 
 average1 = sum(accs)/len(accs)
 average2 = sum(sciaccs)/len(sciaccs)
