@@ -406,10 +406,16 @@ def accuracy(test,Node):
     predictions=predict(test,Node)
     labels=test["Label"]
     count=0
+    pred_act=list(zip(predictions,labels))
 
     for i in range(len(labels)):
         if (labels[i]==predictions[i]):
             count+=1
+    #writes the prediction and actual labels to a text file
+    f = open("predictions_and_real_labels.txt", "w")
+    for i in pred_act:
+        f.write("{}\n".format(i))
+    f.close()
 
     return (count/len(labels)*100)
 
