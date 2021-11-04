@@ -1,3 +1,7 @@
+import os
+import csv
+os.chdir(r"C:\Users\35385\Documents\GitHub\Decision Trees")
+
 #Open the text file and read the lines
 with open('wildfires.txt', 'r') as textfile:
     lines = textfile.readlines()
@@ -26,4 +30,3 @@ with open('wildfires.csv', 'w', encoding='UTF8') as f:
             Count+=1
         else:
             writer.writerow(line)
-    
