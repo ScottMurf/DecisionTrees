@@ -20,5 +20,6 @@ print("{}%".format(round(accuracy(Test, Root), 2)))
 #clf = clf.fit(X1[X1.columns[:-1]], X1["Label"])
 #y_pred = clf.predict(Test[Test.columns[:-1]])
 #print(accuracy_score(Test["Label"], y_pred)*100)
+
 # Print the Tree structure
-#printTree(Tree1)
+printTree(Root)
