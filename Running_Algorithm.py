@@ -1,5 +1,5 @@
 from DecisionTrees import Node, format_dataframe, training_test_split
-from DecisionTrees import accuracy, printTree
+from DecisionTrees import accuracy, printTree, visualise_splits, numerical_info
 import os
 from sklearn import tree
 from sklearn.metrics import accuracy_score
@@ -23,3 +23,6 @@ print("{}%".format(round(accuracy(Test, Root), 2)))
 
 # Print the Tree structure
 printTree(Root)
+
+#How to use visualise_splits with a node
+visualise_splits(Root.df,"temp","ent")

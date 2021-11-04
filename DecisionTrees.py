@@ -426,3 +426,30 @@ def printTree(Node,val="Root"):
         # recursive calls
         for node in Node.under:
             printTree(node,node.key)
+
+#Returns the best split for a feature
+def visualise_splits(X,feat,criterion):
+    import matplotlib.pyplot as plt
+    splits1=splits(feat,X)
+    dict1={}
+
+    for split in splits1:
+        dict1[split]=0
+
+    for split in splits1:
+        if criterion=="ent":
+            dict1[split]=numerical_info(X,feat,split)[0][0]
+        if criterion=="gini":
+            dict1[split]=numerical_info(X,feat,split)[0][1]
+
+    y=dict1.keys()
+    x=dict1.values()
+
+    maxi=max(list(zip(x,y)))
+    plt.figure(figsize=(20,5))
+    plt.bar(y,x,color="b")
+    plt.bar(maxi[1],maxi[0],color="r")
+    plt.title("Feature: {}".format(feat))
+    plt.ylabel("{}".format(criterion))
+    plt.xlabel("Split value")
+    plt.show()
