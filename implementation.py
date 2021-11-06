@@ -327,7 +327,7 @@ def segment(X,criterion):
 
 class Node:
     """Tree Class for creating decision tree structures"""
-    def __init__(self,df,depth,max_depth,end,criterion,key=None):
+    def __init__(self,df,depth=1,max_depth=100,end=False,criterion="ent",key=None):
 
         # Attributes of a node in tree
         self.criterion=criterion

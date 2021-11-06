@@ -11,7 +11,7 @@ X = format_dataframe("wildfires.csv", "yes")
 # Train/Test Splitting
 X1, Test = training_test_split(X, 0.6666)
 # Create the Tree
-Root = Node(X1, 1, 6, False, "ent")
+Root = Node(X1,max_depth = 6)
 # Print the accuracy
 print("{}%".format(round(accuracy(Test, Root), 2)))
 

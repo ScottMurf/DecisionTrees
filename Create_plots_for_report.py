@@ -17,7 +17,7 @@ N = 10
 #Get accuracy of both algorithms 10 times and store the accuracies
 for i in range(N):
     X1, Test = training_test_split(X, 0.6666)
-    Root = Node(X1, 1, 100, False, "gini")
+    Root = Node(X1,criterion= "gini")
     Train = X1.drop("Label", axis=1)
     Train_labs = X1["Label"]
     Test1 = Test.drop("Label", axis=1)
