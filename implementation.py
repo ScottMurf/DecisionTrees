@@ -382,6 +382,8 @@ def testing(observation,Node):
                 if observation[feat].to_string(index=False)==str(Node.under[i].key):
                     Node=Node.under[i]
                     break
+                else:
+                    Node.end=True
         # for numerical feature splits
         else:
             if float(observation[feat])<threshold:
