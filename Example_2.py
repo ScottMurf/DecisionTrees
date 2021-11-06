@@ -1,6 +1,6 @@
-import os
 from implementation import Node, format_dataframe, training_test_split
 from implementation import accuracy, printTree, visualise_splits, visualise_best_feature
+import os
 from sklearn import tree
 from sklearn.metrics import accuracy_score
 
