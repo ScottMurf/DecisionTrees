@@ -1,8 +1,5 @@
-
-
-
-from DecisionTrees import training_test_split, format_dataframe
-from DecisionTrees import accuracy, Node
+from implementation import training_test_split, format_dataframe
+from implementation import accuracy, Node
 import matplotlib.pyplot as plt
 from sklearn import tree
 from sklearn.metrics import accuracy_score
