@@ -1,3 +1,7 @@
+"""This file contains all the functions and classes needed to
+execute the custom C4.5 algorithm. The relevant functions should
+be imported from this file to be ran."""
+
 import pandas as pd
 import numpy as np
 import csv
@@ -71,7 +75,7 @@ def splitter(X,feat,split):
 def ent(l1,l2):
     """Calculates the entropy when 2
     classes are present in the data"""
-    #Special cas
+    #Special case
     if l1==0 and l2==0:
         return 0
     else:
