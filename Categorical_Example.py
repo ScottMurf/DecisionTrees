@@ -1,3 +1,6 @@
+"""Example which demonstrates the functionality of the algorithm on categorical
+data. weathertxt.csv is used for training and testing in this example."""
+
 from implementation import Node, format_dataframe, training_test_split
 from implementation import accuracy, printTree, visualise_splits, visualise_best_feature
 import os
