@@ -1,3 +1,7 @@
+"""The purpose of this file is to convert textfile datasheets
+ to csv files. These have greater data manipulation methods in
+ Python."""
+
 import os
 import csv
 #Set working directory (depends on system the code is being ran on)
