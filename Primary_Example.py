@@ -1,3 +1,6 @@
+"""Testing implementaion of the custom C4.5 algorithm using the
+wildfires.csv dataset."""
+
 from implementation import Node, format_dataframe, training_test_split
 from implementation import accuracy, printTree, visualise_splits, visualise_best_feature
 import os
