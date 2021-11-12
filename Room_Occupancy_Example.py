@@ -1,3 +1,6 @@
+"""This file shows the implementation of the custom C4.5 algorithm on
+a dataset from kaggle: https://www.kaggle.com/sachinsharma1123/room-occupancy"""
+
 from implementation import Node, format_dataframe, training_test_split
 from implementation import accuracy, printTree, visualise_splits, visualise_best_feature
 import os
